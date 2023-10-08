@@ -1,0 +1,37 @@
+#include<stdio.h>
+#include<stdio.h>
+#include<math.h>
+int main(){
+    long num_decimal,aux;
+    int condicion=1;
+    int vectorBinario[20];
+    for(int i=20;i>=0;i--){
+        vectorBinario[i]=0;
+    }    
+    printf("\n");
+    printf("Inserte un numero en base 10 entero : ");
+    scanf("%ld",&num_decimal);
+    if(num_decimal%2!=0){
+        vectorBinario[0]=1;
+    }
+    for(int i=0;condicion;i++){
+        aux=num_decimal-pow(2,i);
+        if(aux>=0 && (num_decimal-pow(2,i+1))<0){
+            vectorBinario[i]=1;
+            num_decimal=aux;
+            i=0;
+        }
+        if(num_decimal==0){
+            condicion=0;
+            break;
+        }
+        if(i>20){
+            break;
+        }
+    }
+    printf("La conversion a binario es: \n");
+    for(int i=19;i>=0;i--){
+        printf("[%d]",vectorBinario[i]);
+    }
+    return 0;
+}
