@@ -1,0 +1,198 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<time.h>
+#include<ctype.h>
+
+int cmpColumnas(int dado1,int columnas);    
+
+int main(){
+    char pasivo[10];
+    char apuesta[20],numchar[12];
+    int valor=0,dineroapostado,dado1,dado2,dado3;
+    long dinero=1000;
+
+    srand(time(NULL));
+    while (1)
+    {   
+        valor =0;
+        dado1=rand()%13;
+        dado2=rand()%13;
+        dado3=rand()%13;
+        printf("\n ¿Donde quieres apostar ? ");
+        printf("\n Favor de seguir la siguiente nomenclatura en las apuestas\n");
+        printf("\n Para apostar <Pasa> digita pasa\n");
+        printf("\n Para apostar <Falta> digita falta\n");
+        printf("\n Para apostar <Par> digita par\n");
+        printf("\n Para apostar <Impar> digita impar\n");
+        printf("\n Para apostar <Negro> digita negro\n");
+        printf("\n Para apostar <Rojo> digita rojo\n");
+        printf("\n Para apostar <P12> digita p12\n");
+        printf("\n Para apostar <M12> digita m12\n");
+        printf("\n Para apostar <D12> digita d12\n");
+        printf("\n Para apostar <Columna 1> digita c1\n");
+        printf("\n Para apostar <Columna 2> digita c2\n");
+        printf("\n Para apostar <Columna 3> digita c3\n");
+        printf("\n Para apostar <Numero> digita  el numero\n");
+        printf("Donde desea apostar : ");
+        fgets(apuesta,20,stdin);   
+        for (int indice = 0; apuesta[indice] != '\0'; ++indice){
+		    apuesta[indice] = tolower(apuesta[indice]);
+	    }
+        puts(apuesta);
+
+        printf("Dinero actual : %d \n",dinero);
+        printf("¿Cuanto dinero desea apostar? : ");
+        scanf("%d",&dineroapostado);
+        if(dineroapostado<0 || dineroapostado>dinero){
+            printf("No se puede apostar cantidades irreales\n");
+            printf("\nPresione [ENTER]\n");
+            fgets(pasivo,10,stdin);
+            fgets(pasivo,10,stdin);
+            //pasivo=getchar();
+            //pasivo=getchar();
+            continue;
+        }
+        //dinero+=dineroapostado;
+        printf("Dinero actual : %d \n",dinero);
+        printf("LA CASILLA GANADORA ES ");
+        printf(".");
+        printf("..");
+        printf("...\n");
+        printf("\t%d\n",dado1+dado2+dado3);
+        dado1=dado1+dado2+dado3;
+        sprintf(numchar,"%d\n",dado1);
+        if(strcmp(apuesta,numchar)==0){
+            printf("Felicidades Ganaste 35 veces tu apuesta\n");
+            printf("Tu dinero actual es: %d ",dinero+dineroapostado*35);
+            dinero=dinero+dineroapostado*35;
+            valor=1;
+        }
+        if(strcmp(apuesta,"pasa\n")==0 && 19<=dado1 && dado1<=36){
+            printf("Felicidades Ganaste la cantidad apostada\n");
+            printf("Tu dinero actual es: %d ",dinero+dineroapostado*2);
+            dinero+=dineroapostado*2;
+            valor=1;
+        }
+        if(strcmp(apuesta,"falta\n")==0 && 1<=dado1 && dado1<=18){
+            printf("Felicidades Ganaste la cantidad apostada\n");
+            printf("Tu dinero actual es: %d ",dinero+dineroapostado*2);
+            dinero=dinero+dineroapostado*2;
+            valor=1;
+        }
+        if(strcmp(apuesta,"par\n")==0 && dado1%2==0){
+            printf("Felicidades Ganaste la cantidad apostada\n");
+            printf("Tu dinero actual es: %d ",dinero+dineroapostado*2);
+            dinero=dinero+dineroapostado*2;
+            valor=1;
+        }
+        if(strcmp(apuesta,"impar\n")==0 && dado1%2!=0){
+            printf("Felicidades Ganaste la cantidad apostada\n");
+            printf("Tu dinero actual es: %d ",dinero+dineroapostado*2);
+            dinero=dinero+dineroapostado*2;
+            valor=1;
+        }
+        if(strcmp(apuesta,"negro\n")==0 && dado1%2==0 && dado1!=0){
+            printf("Felicidades Ganaste la cantidad apostada\n");
+            printf("Tu dinero actual es: %d ",dinero+dineroapostado*2);
+            dinero=dinero+dineroapostado*2;
+            valor=1;
+        }
+        if(strcmp(apuesta,"rojo\n")==0 && dado1%2!=0){
+            printf("Felicidades Ganaste la cantidad apostada\n");
+            printf("Tu dinero actual es: %d ",dinero+dineroapostado*2);
+            dinero=dinero+dineroapostado*2;
+            valor=1;
+        }
+        if(strcmp(apuesta,"p12\n")==0 && 1<=dado1 && dado1<=12){
+            printf("Felicidades Ganaste la cantidad apostada\n");
+            printf("Tu dinero actual es: %d ",dinero+dineroapostado*3);
+            dinero=dinero+dineroapostado*3;
+            valor=1;
+        }
+        if(strcmp(apuesta,"m12\n")==0 && 13<=dado1 && dado1<=24){
+            printf("Felicidades Ganaste la cantidad apostada\n");
+            printf("Tu dinero actual es: %d ",dinero+dineroapostado*3);
+            dinero=dinero+dineroapostado*3;
+            valor=1;
+        }
+
+        if(strcmp(apuesta,"d12\n")==0 && 25<=dado1 && dado1<=36){
+            printf("Felicidades Ganaste la cantidad apostada\n");
+            printf("Tu dinero actual es: %d ",dinero+dineroapostado*3);
+            dinero=dinero+dineroapostado*3;
+            valor=1;
+        }
+        
+        if(strcmp(apuesta,"c1\n")==0 && cmpColumnas(dado1,1)==1){
+            printf("Felicidades Ganaste la cantidad apostada\n");
+            printf("Tu dinero actual es: %d ",dinero+dineroapostado*3);
+            dinero=dinero+dineroapostado*3;
+            valor=1;
+        }
+        if(strcmp(apuesta,"c2\n")==0 && cmpColumnas(dado1,2)==2){
+            printf("Felicidades Ganaste la cantidad apostada\n");
+            printf("Tu dinero actual es: %d ",dinero+dineroapostado*3);
+            dinero=dinero+dineroapostado*3;
+            valor=1;
+        }
+        if(strcmp(apuesta,"c3\n")==0 && cmpColumnas(dado1,3)==3){
+            printf("Felicidades Ganaste la cantidad apostada\n");
+            printf("Tu dinero actual es: %d ",dinero+dineroapostado*3);
+            dinero=dinero+dineroapostado*3;
+            valor=1;
+        }
+        if(valor==0){
+            dinero-=dineroapostado;
+            printf("Perdio su apuesta\n Saldo actual: %d\n",dinero);
+        }
+        if(dinero==0){
+            printf("Perdio todo su dinero\n");
+            exit(EXIT_SUCCESS);
+        }
+        printf("\n Presione [ENTER]\n");
+        //pasivo=getchar();
+        //pasivo=getchar();
+        fgets(pasivo,10,stdin);
+        fgets(pasivo,10,stdin);
+        printf("¿Desea continuar ? [S/N]");
+        fgets(pasivo,10,stdin);
+        if(strcmp(pasivo,"n\n")==0){
+            printf("Saldo final %d\n",dinero);
+            exit (EXIT_SUCCESS);
+        }
+
+    }
+}
+
+int cmpColumnas(int dado1,int columnas){
+    int res=0;
+    
+    if(columnas==1){
+        for(int i=1;i<34;){
+            i+=3;
+            if(dado1==i){
+                res=1;
+                
+            }
+        }
+    }
+    if(columnas==2){
+        for(int i=2;i<35;){
+            i+=3;
+            if(dado1==i+3){
+                res=2;
+            }
+        }
+    }
+    if(columnas==3){
+        for(int i=3;i<36;){
+            i+=3;
+            if(dado1==i){
+                res=3;
+            }
+        }
+    }    
+    else{
+        return res;
+    }
+}
